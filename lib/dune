@@ -1,2 +1,12 @@
 (library
- (name straight_line))
+ (name straight_line)
+ (libraries stdio menhirLib)
+ (preprocess
+  (pps ppx_deriving.show)))
+
+(ocamllex
+ (modules lexer))
+
+(menhir
+ (modules parser)
+ (flags --table --strict))
