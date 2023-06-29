@@ -1,1 +1,1 @@
-val parse : string list -> Ast.exp
+val parse : string -> (Ast.stm, string) result

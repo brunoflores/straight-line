@@ -38,5 +38,9 @@ rule read = parse
     { ASSIGN }
   | "print"
     { PRINT }
+  | id
+    { ID (Lexing.lexeme lexbuf) }
+  | _
+    { raise (SyntaxError ("Unexpected: " ^ Lexing.lexeme lexbuf)) }
   | eof
     { EOF }
