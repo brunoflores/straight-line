@@ -1,0 +1,3 @@
+```
+$ menhir --strict --explain --list-errors lib/parser.mly > lib/parser.messages
+```
