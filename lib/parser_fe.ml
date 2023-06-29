@@ -48,8 +48,8 @@ let parse (lexbuf, text) : (Ast.stm, string) result =
   let supplier = MenhirInterpreter.lexer_lexbuf_to_supplier Lexer.read lexbuf in
   let buffer, supplier = ErrorReports.wrap_supplier supplier in
   let checkpoint = Parser.Incremental.prog lexbuf.lex_curr_p in
-  try
-    MenhirInterpreter.loop_handle succeed (fail text buffer) supplier checkpoint
+  let fail = fail text buffer in
+  try MenhirInterpreter.loop_handle succeed fail supplier checkpoint
   with Lexer.SyntaxError msg -> Error msg
 
 let io_read_text file =
