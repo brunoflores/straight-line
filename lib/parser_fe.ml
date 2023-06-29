@@ -53,7 +53,10 @@ let menhir_parse (lexbuf, text) : (Ast.stm, string) result =
   with Lexer.SyntaxError msg -> Error msg
 
 let io_read_text file =
-  let text = Stdio.In_channel.read_all file in
-  (LexerUtil.init file (text |> Lexing.from_string), text)
+  try
+    let text = Stdio.In_channel.read_all file in
+    Ok (LexerUtil.init file (text |> Lexing.from_string), text)
+  with Sys_error msg -> Error msg
 
-let parse file : (Ast.stm, string) result = io_read_text file |> menhir_parse
+let ( >>= ) = Result.bind
+let parse file : (Ast.stm, string) result = io_read_text file >>= menhir_parse

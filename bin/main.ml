@@ -8,5 +8,11 @@ let () =
   let readfname s = files := s :: !files in
   let _ = Arg.parse spec readfname usage in
   let file = List.hd !files in
-  let _ = Parser.parse file in
+  let _ =
+    match Parser.parse file with
+    | Ok _ -> ()
+    | Error e ->
+        Printf.eprintf "%s\n" e;
+        exit 1
+  in
   ()
