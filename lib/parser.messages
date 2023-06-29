@@ -14,7 +14,7 @@ prog: PRINT TIMES
 ##
 ## Ends in an error in state: 1.
 ##
-## stm -> PRINT . LPAREN separated_nonempty_list(COMMA,par_exp) RPAREN [ SEMICOLON EOF COMMA ]
+## stm -> PRINT . LPAREN separated_nonempty_list(COMMA,exp) RPAREN [ SEMICOLON EOF COMMA ]
 ##
 ## The known suffix of the stack is as follows:
 ## PRINT
@@ -26,7 +26,7 @@ prog: PRINT LPAREN TIMES
 ##
 ## Ends in an error in state: 2.
 ##
-## stm -> PRINT LPAREN . separated_nonempty_list(COMMA,par_exp) RPAREN [ SEMICOLON EOF COMMA ]
+## stm -> PRINT LPAREN . separated_nonempty_list(COMMA,exp) RPAREN [ SEMICOLON EOF COMMA ]
 ##
 ## The known suffix of the stack is as follows:
 ## PRINT LPAREN
@@ -38,8 +38,8 @@ prog: ID ASSIGN LPAREN TIMES
 ##
 ## Ends in an error in state: 3.
 ##
-## exp -> LPAREN . stm COMMA par_exp RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## par_exp -> LPAREN . exp RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> LPAREN . exp RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> LPAREN . stm COMMA exp RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
 ## LPAREN
@@ -52,7 +52,7 @@ prog: ID ASSIGN LPAREN ID SEMICOLON
 ## Ends in an error in state: 5.
 ##
 ## exp -> ID . [ TIMES RPAREN PLUS MINUS DIV ]
-## stm -> ID . ASSIGN par_exp [ COMMA ]
+## stm -> ID . ASSIGN exp [ COMMA ]
 ##
 ## The known suffix of the stack is as follows:
 ## ID
@@ -64,7 +64,7 @@ prog: ID ASSIGN TIMES
 ##
 ## Ends in an error in state: 6.
 ##
-## stm -> ID ASSIGN . par_exp [ SEMICOLON EOF COMMA ]
+## stm -> ID ASSIGN . exp [ SEMICOLON EOF COMMA ]
 ##
 ## The known suffix of the stack is as follows:
 ## ID ASSIGN
@@ -72,18 +72,18 @@ prog: ID ASSIGN TIMES
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
-prog: ID ASSIGN ID PRINT
+prog: ID ASSIGN ID RPAREN
 ##
 ## Ends in an error in state: 8.
 ##
-## exp -> par_exp . PLUS par_exp [ TIMES SEMICOLON PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . MINUS par_exp [ TIMES SEMICOLON PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . TIMES par_exp [ TIMES SEMICOLON PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . DIV par_exp [ TIMES SEMICOLON PLUS MINUS EOF DIV COMMA ]
-## stm -> ID ASSIGN par_exp . [ SEMICOLON EOF COMMA ]
+## exp -> exp . PLUS exp [ TIMES SEMICOLON PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . MINUS exp [ TIMES SEMICOLON PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . TIMES exp [ TIMES SEMICOLON PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . DIV exp [ TIMES SEMICOLON PLUS MINUS EOF DIV COMMA ]
+## stm -> ID ASSIGN exp . [ SEMICOLON EOF COMMA ]
 ##
 ## The known suffix of the stack is as follows:
-## ID ASSIGN par_exp
+## ID ASSIGN exp
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
@@ -92,87 +92,87 @@ prog: ID ASSIGN ID TIMES TIMES
 ##
 ## Ends in an error in state: 9.
 ##
-## exp -> par_exp TIMES . par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp TIMES . exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
-## par_exp TIMES
+## exp TIMES
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID ASSIGN ID PLUS TIMES
 ##
-## Ends in an error in state: 12.
+## Ends in an error in state: 11.
 ##
-## exp -> par_exp PLUS . par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp PLUS . exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
-## par_exp PLUS
+## exp PLUS
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID ASSIGN ID PLUS ID PRINT
 ##
-## Ends in an error in state: 13.
+## Ends in an error in state: 12.
 ##
-## exp -> par_exp . PLUS par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp PLUS par_exp . [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . MINUS par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . TIMES par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . DIV par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . PLUS exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp PLUS exp . [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . MINUS exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . TIMES exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . DIV exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
-## par_exp PLUS par_exp
+## exp PLUS exp
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID ASSIGN ID DIV TIMES
 ##
-## Ends in an error in state: 14.
+## Ends in an error in state: 13.
 ##
-## exp -> par_exp DIV . par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp DIV . exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
-## par_exp DIV
+## exp DIV
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID ASSIGN ID MINUS TIMES
 ##
-## Ends in an error in state: 16.
+## Ends in an error in state: 15.
 ##
-## exp -> par_exp MINUS . par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp MINUS . exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
-## par_exp MINUS
+## exp MINUS
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID ASSIGN ID MINUS ID PRINT
 ##
-## Ends in an error in state: 17.
+## Ends in an error in state: 16.
 ##
-## exp -> par_exp . PLUS par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . MINUS par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp MINUS par_exp . [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . TIMES par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . DIV par_exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . PLUS exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . MINUS exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp MINUS exp . [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . TIMES exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . DIV exp [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
-## par_exp MINUS par_exp
+## exp MINUS exp
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID ASSIGN LPAREN ID ASSIGN ID SEMICOLON
 ##
-## Ends in an error in state: 18.
+## Ends in an error in state: 17.
 ##
-## exp -> LPAREN stm . COMMA par_exp RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> LPAREN stm . COMMA exp RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
 ## LPAREN stm
@@ -181,16 +181,16 @@ prog: ID ASSIGN LPAREN ID ASSIGN ID SEMICOLON
 ## This implies that, although the LR(1) items shown above provide an
 ## accurate view of the past (what has been recognized so far), they
 ## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 8, spurious reduction of production stm -> ID ASSIGN par_exp
+## In state 8, spurious reduction of production stm -> ID ASSIGN exp
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID ASSIGN LPAREN ID ASSIGN ID COMMA TIMES
 ##
-## Ends in an error in state: 19.
+## Ends in an error in state: 18.
 ##
-## exp -> LPAREN stm COMMA . par_exp RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> LPAREN stm COMMA . exp RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
 ##
 ## The known suffix of the stack is as follows:
 ## LPAREN stm COMMA
@@ -198,43 +198,31 @@ prog: ID ASSIGN LPAREN ID ASSIGN ID COMMA TIMES
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
-prog: ID ASSIGN LPAREN ID ASSIGN ID COMMA ID PRINT
+prog: ID ASSIGN LPAREN ID ASSIGN ID COMMA ID SEMICOLON
 ##
-## Ends in an error in state: 20.
+## Ends in an error in state: 19.
 ##
-## exp -> LPAREN stm COMMA par_exp . RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## exp -> par_exp . PLUS par_exp [ TIMES RPAREN PLUS MINUS DIV ]
-## exp -> par_exp . MINUS par_exp [ TIMES RPAREN PLUS MINUS DIV ]
-## exp -> par_exp . TIMES par_exp [ TIMES RPAREN PLUS MINUS DIV ]
-## exp -> par_exp . DIV par_exp [ TIMES RPAREN PLUS MINUS DIV ]
+## exp -> LPAREN stm COMMA exp . RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . PLUS exp [ TIMES RPAREN PLUS MINUS DIV ]
+## exp -> exp . MINUS exp [ TIMES RPAREN PLUS MINUS DIV ]
+## exp -> exp . TIMES exp [ TIMES RPAREN PLUS MINUS DIV ]
+## exp -> exp . DIV exp [ TIMES RPAREN PLUS MINUS DIV ]
 ##
 ## The known suffix of the stack is as follows:
-## LPAREN stm COMMA par_exp
+## LPAREN stm COMMA exp
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
-prog: ID ASSIGN LPAREN LPAREN ID RPAREN SEMICOLON
+prog: ID ASSIGN LPAREN INT SEMICOLON
 ##
-## Ends in an error in state: 22.
+## Ends in an error in state: 21.
 ##
-## exp -> par_exp . PLUS par_exp [ TIMES RPAREN PLUS MINUS DIV ]
-## exp -> par_exp . MINUS par_exp [ TIMES RPAREN PLUS MINUS DIV ]
-## exp -> par_exp . TIMES par_exp [ TIMES RPAREN PLUS MINUS DIV ]
-## exp -> par_exp . DIV par_exp [ TIMES RPAREN PLUS MINUS DIV ]
-##
-## The known suffix of the stack is as follows:
-## par_exp
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: ID ASSIGN LPAREN INT PRINT
-##
-## Ends in an error in state: 23.
-##
-## par_exp -> LPAREN exp . RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
-## par_exp -> exp . [ TIMES PLUS MINUS DIV ]
+## exp -> LPAREN exp . RPAREN [ TIMES SEMICOLON RPAREN PLUS MINUS EOF DIV COMMA ]
+## exp -> exp . PLUS exp [ TIMES RPAREN PLUS MINUS DIV ]
+## exp -> exp . MINUS exp [ TIMES RPAREN PLUS MINUS DIV ]
+## exp -> exp . TIMES exp [ TIMES RPAREN PLUS MINUS DIV ]
+## exp -> exp . DIV exp [ TIMES RPAREN PLUS MINUS DIV ]
 ##
 ## The known suffix of the stack is as follows:
 ## LPAREN exp
@@ -242,40 +230,40 @@ prog: ID ASSIGN LPAREN INT PRINT
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
-prog: PRINT LPAREN ID PRINT
+prog: PRINT LPAREN ID SEMICOLON
 ##
-## Ends in an error in state: 27.
+## Ends in an error in state: 25.
 ##
-## exp -> par_exp . PLUS par_exp [ TIMES RPAREN PLUS MINUS DIV COMMA ]
-## exp -> par_exp . MINUS par_exp [ TIMES RPAREN PLUS MINUS DIV COMMA ]
-## exp -> par_exp . TIMES par_exp [ TIMES RPAREN PLUS MINUS DIV COMMA ]
-## exp -> par_exp . DIV par_exp [ TIMES RPAREN PLUS MINUS DIV COMMA ]
-## separated_nonempty_list(COMMA,par_exp) -> par_exp . [ RPAREN ]
-## separated_nonempty_list(COMMA,par_exp) -> par_exp . COMMA separated_nonempty_list(COMMA,par_exp) [ RPAREN ]
+## exp -> exp . PLUS exp [ TIMES RPAREN PLUS MINUS DIV COMMA ]
+## exp -> exp . MINUS exp [ TIMES RPAREN PLUS MINUS DIV COMMA ]
+## exp -> exp . TIMES exp [ TIMES RPAREN PLUS MINUS DIV COMMA ]
+## exp -> exp . DIV exp [ TIMES RPAREN PLUS MINUS DIV COMMA ]
+## separated_nonempty_list(COMMA,exp) -> exp . [ RPAREN ]
+## separated_nonempty_list(COMMA,exp) -> exp . COMMA separated_nonempty_list(COMMA,exp) [ RPAREN ]
 ##
 ## The known suffix of the stack is as follows:
-## par_exp
+## exp
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: PRINT LPAREN ID COMMA TIMES
 ##
-## Ends in an error in state: 28.
+## Ends in an error in state: 26.
 ##
-## separated_nonempty_list(COMMA,par_exp) -> par_exp COMMA . separated_nonempty_list(COMMA,par_exp) [ RPAREN ]
+## separated_nonempty_list(COMMA,exp) -> exp COMMA . separated_nonempty_list(COMMA,exp) [ RPAREN ]
 ##
 ## The known suffix of the stack is as follows:
-## par_exp COMMA
+## exp COMMA
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID TIMES
 ##
-## Ends in an error in state: 30.
+## Ends in an error in state: 28.
 ##
-## stm -> ID . ASSIGN par_exp [ SEMICOLON EOF ]
+## stm -> ID . ASSIGN exp [ SEMICOLON EOF ]
 ##
 ## The known suffix of the stack is as follows:
 ## ID
@@ -285,7 +273,7 @@ prog: ID TIMES
 
 prog: ID ASSIGN ID COMMA
 ##
-## Ends in an error in state: 31.
+## Ends in an error in state: 29.
 ##
 ## separated_nonempty_list(SEMICOLON,stm) -> stm . [ EOF ]
 ## separated_nonempty_list(SEMICOLON,stm) -> stm . SEMICOLON separated_nonempty_list(SEMICOLON,stm) [ EOF ]
@@ -297,14 +285,14 @@ prog: ID ASSIGN ID COMMA
 ## This implies that, although the LR(1) items shown above provide an
 ## accurate view of the past (what has been recognized so far), they
 ## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 8, spurious reduction of production stm -> ID ASSIGN par_exp
+## In state 8, spurious reduction of production stm -> ID ASSIGN exp
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: ID ASSIGN ID SEMICOLON TIMES
 ##
-## Ends in an error in state: 32.
+## Ends in an error in state: 30.
 ##
 ## separated_nonempty_list(SEMICOLON,stm) -> stm SEMICOLON . separated_nonempty_list(SEMICOLON,stm) [ EOF ]
 ##

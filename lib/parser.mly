@@ -28,29 +28,25 @@ prog:
     { stmts }
 
 stm:
-  | id = ID; ASSIGN; e = par_exp
+  | id = ID; ASSIGN; e = exp
     { AssignStm (id, e) }
-  | PRINT; LPAREN; exps = separated_nonempty_list(COMMA, par_exp); RPAREN
+  | PRINT; LPAREN; exps = separated_nonempty_list(COMMA, exp); RPAREN
     { PrintStm exps }
 
-par_exp:
+exp:
   | LPAREN; e = exp; RPAREN
     { e }
-  | e = exp
-    { e }
-
-exp:
-  | LPAREN; s = stm; COMMA; e = par_exp; RPAREN
+  | LPAREN; s = stm; COMMA; e = exp; RPAREN
     { EffectfulExp (s, e) }
   | id = ID
     { IdExp id }
   | i = INT
     { NumExp i }
-  | e1 = par_exp; PLUS; e2 = par_exp
+  | e1 = exp; PLUS; e2 = exp
     { OpExp (e1, Plus, e2) }
-  | e1 = par_exp; MINUS; e2 = par_exp
+  | e1 = exp; MINUS; e2 = exp
     { OpExp (e1, Minus, e2) }
-  | e1 = par_exp; TIMES; e2 = par_exp
+  | e1 = exp; TIMES; e2 = exp
     { OpExp (e1, Times, e2) }
-  | e1 = par_exp; DIV; e2 = par_exp
+  | e1 = exp; DIV; e2 = exp
     { OpExp (e1, Div, e2) }
