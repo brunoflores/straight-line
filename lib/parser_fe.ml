@@ -44,7 +44,7 @@ let fail text buffer checkpoint =
   let message = ErrorReports.expand (get checkpoint) message in
   Error (Printf.sprintf "%s%s%s%!" location indication message)
 
-let menhir_parse (lexbuf, text) : (Ast.stm, string) result =
+let parse (lexbuf, text) : (Ast.stm, string) result =
   let supplier = MenhirInterpreter.lexer_lexbuf_to_supplier Lexer.read lexbuf in
   let buffer, supplier = ErrorReports.wrap_supplier supplier in
   let checkpoint = Parser.Incremental.prog lexbuf.lex_curr_p in
@@ -59,4 +59,4 @@ let io_read_text file =
   with Sys_error msg -> Error msg
 
 let ( >>= ) = Result.bind
-let parse file : (Ast.stm, string) result = io_read_text file >>= menhir_parse
+let parse file : (Ast.stm, string) result = io_read_text file >>= parse
