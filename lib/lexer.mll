@@ -22,6 +22,10 @@ rule read = parse
   | newline
     { next_line lexbuf;
       read lexbuf }
+  | "("
+    { LPAREN }
+  | ")"
+    { RPAREN }
   | "+"
     { PLUS }
   | "-"
@@ -38,9 +42,12 @@ rule read = parse
     { ASSIGN }
   | "print"
     { PRINT }
+  | int
+    { let i = int_of_string @@ Lexing.lexeme lexbuf in
+      INT i }
   | id
     { ID (Lexing.lexeme lexbuf) }
   | _
-    { raise (SyntaxError ("Unexpected: " ^ Lexing.lexeme lexbuf)) }
+    { raise (SyntaxError ("Unexpected in scanner: " ^ Lexing.lexeme lexbuf)) }
   | eof
     { EOF }

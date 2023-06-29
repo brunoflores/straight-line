@@ -2,7 +2,7 @@ module ErrorReports = MenhirLib.ErrorReports
 module LexerUtil = MenhirLib.LexerUtil
 module MenhirInterpreter = Parser.MenhirInterpreter
 
-let succeed () = (* Ast.print prog *) Ok (Ast.PrintStm [])
+let succeed prog = Ok prog
 
 let fail text buffer checkpoint =
   let env checkpoint =
@@ -44,7 +44,7 @@ let fail text buffer checkpoint =
   let message = ErrorReports.expand (get checkpoint) message in
   Error (Printf.sprintf "%s%s%s%!" location indication message)
 
-let parse (lexbuf, text) : (Ast.stm, string) result =
+let parse (lexbuf, text) : (Ast.stm list, string) result =
   let supplier = MenhirInterpreter.lexer_lexbuf_to_supplier Lexer.read lexbuf in
   let buffer, supplier = ErrorReports.wrap_supplier supplier in
   let checkpoint = Parser.Incremental.prog lexbuf.lex_curr_p in
@@ -59,4 +59,4 @@ let io_read_text file =
   with Sys_error msg -> Error msg
 
 let ( >>= ) = Result.bind
-let parse file : (Ast.stm, string) result = io_read_text file >>= parse
+let parse file : (Ast.stm list, string) result = io_read_text file >>= parse
