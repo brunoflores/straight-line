@@ -8,4 +8,3 @@ and exp =
   | IdExp of id
   | NumExp of int
   | OpExp of exp * binop * exp
-  | EseqExp of stm * exp
