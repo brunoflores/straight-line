@@ -1,4 +1,4 @@
-exception Unbound_identifier of Ast.pos
+exception Unbound_identifier of (Ast.pos * Ast.pos)
 
 type env = (Ast.id * int) list
 

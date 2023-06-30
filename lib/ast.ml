@@ -6,7 +6,7 @@ and stm = AssignStm of id * exp | PrintStm of exp list
 
 and exp =
   | EffectfulExp of stm * exp
-  | IdExp of id * pos
+  | IdExp of id * (pos * pos)
   | NumExp of int
   | OpExp of exp * binop * exp
 

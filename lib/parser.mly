@@ -37,7 +37,7 @@ exp:
   | LPAREN; s = stm; COMMA; e = exp; RPAREN
     { EffectfulExp (s, e) }
   | id = ID
-    { IdExp (id, (pos_of_lexing_position $startpos)) }
+    { IdExp (id, (pos_of_lexing_position $startpos, pos_of_lexing_position $endpos)) }
   | i = INT
     { NumExp i }
   | e1 = exp; PLUS; e2 = exp

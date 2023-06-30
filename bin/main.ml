@@ -41,7 +41,11 @@ let () =
   match Parser.parse file with
   | Ok prog -> (
       try Interpreter.interpret prog
-      with Interpreter.Unbound_identifier _pos -> ())
+      with Interpreter.Unbound_identifier pos ->
+        let header = "Unbound identifier" in
+        Printf.eprintf "%s\n%!" header;
+        pretty_print_err pos;
+        exit 1)
   | Error (Parser.SyntaxError (header, pos)) ->
       Printf.eprintf "%s\n%!" header;
       pretty_print_err pos;
