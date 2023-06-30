@@ -1,4 +1,3 @@
-module Ast = Straight_line.Ast
 module Parser = Straight_line.Parser_fe
 module Interpreter = Straight_line.Interpreter
 
