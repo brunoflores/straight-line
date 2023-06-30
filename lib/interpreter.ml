@@ -1,3 +1,5 @@
+exception Unbound_identifier of string
+
 type env = (Ast.id * int) list
 
 let rec interpretStm (env : env) (stm : Ast.stm) : env =
@@ -34,7 +36,7 @@ and interpretExp (env : env) (exp : Ast.exp) : int * env =
   | Ast.IdExp id -> (
       match List.assoc_opt id env with
       | Some e -> (e, env)
-      | None -> failwith @@ Format.sprintf "Unbound identifier: %s\n" id)
+      | None -> raise @@ Unbound_identifier id)
   | Ast.OpExp (e1, op, e2) ->
       let e1, env' = interpretExp env e1 in
       let e2, env'' = interpretExp env' e2 in

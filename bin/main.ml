@@ -9,7 +9,10 @@ let () =
   let _ = Arg.parse spec readfname usage in
   let file = List.hd !files in
   match Parser.parse file with
-  | Ok prog -> Interpreter.interpret prog
+  | Ok prog -> (
+      try Interpreter.interpret prog
+      with Interpreter.Unbound_identifier id ->
+        Printf.eprintf "Unbound identifier: %s\n" id)
   | Error e ->
       Printf.eprintf "%s\n" e;
       exit 1
