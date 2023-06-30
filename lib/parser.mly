@@ -1,6 +1,4 @@
-%{
-open Ast
-%}
+%{ open Ast %}
 
 %token <string> ID
 %token <int> INT
@@ -39,7 +37,7 @@ exp:
   | LPAREN; s = stm; COMMA; e = exp; RPAREN
     { EffectfulExp (s, e) }
   | id = ID
-    { IdExp id }
+    { IdExp (id, (pos_of_lexing_position $startpos)) }
   | i = INT
     { NumExp i }
   | e1 = exp; PLUS; e2 = exp

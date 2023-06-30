@@ -1,6 +1,6 @@
 {
 open Parser
-exception SyntaxError of string
+exception SyntaxError of Lexing.position
 
 let next_line lexbuf =
   let open Lexing in
@@ -48,6 +48,6 @@ rule read = parse
   | id
     { ID (Lexing.lexeme lexbuf) }
   | _
-    { raise (SyntaxError ("Unexpected in scanner: " ^ Lexing.lexeme lexbuf)) }
+    { raise (SyntaxError lexbuf.lex_curr_p) }
   | eof
     { EOF }

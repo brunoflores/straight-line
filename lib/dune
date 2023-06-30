@@ -1,6 +1,6 @@
 (library
  (name straight_line)
- (libraries stdio menhirLib)
+ (libraries menhirLib)
  (preprocess
   (pps ppx_deriving.show)))
 

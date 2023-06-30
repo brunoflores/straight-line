@@ -1,4 +1,4 @@
-exception Unbound_identifier of string
+exception Unbound_identifier of Ast.pos
 
 type env = (Ast.id * int) list
 
@@ -33,10 +33,10 @@ and interpretExp (env : env) (exp : Ast.exp) : int * env =
   | Ast.EffectfulExp (s, e) ->
       let env' = interpretStm env s in
       interpretExp env' e
-  | Ast.IdExp id -> (
+  | Ast.IdExp (id, pos) -> (
       match List.assoc_opt id env with
       | Some e -> (e, env)
-      | None -> raise @@ Unbound_identifier id)
+      | None -> raise @@ Unbound_identifier pos)
   | Ast.OpExp (e1, op, e2) ->
       let e1, env' = interpretExp env e1 in
       let e2, env'' = interpretExp env' e2 in
