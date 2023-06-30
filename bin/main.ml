@@ -23,7 +23,9 @@ let pretty_print_err (p1, p2) =
     let margin = Format.sprintf "%d | " pos_lnum in
     Printf.eprintf "%s%s\n%!" margin !line;
     let margin = String.make (String.length margin) ' ' in
-    Printf.eprintf "%s%s\n\n%!" margin caret;
+    let reset = "\027[0m" in
+    let red = "\027[31m" in
+    Printf.eprintf "%s%s%s%s\n%!" red margin caret reset;
     close_in ic
   with e ->
     close_in_noerr ic;
