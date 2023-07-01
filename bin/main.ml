@@ -7,6 +7,7 @@ let pretty_print_err (p1, p2) =
         { Ast.pos_cnum = c2; pos_bol = b2; _ } ) =
     (p1, p2)
   in
+  (* Character offset minus line offset equals column number *)
   let c1 = c1 - b1 in
   let c2 = c2 - b2 in
   let ic = open_in pos_fname in
