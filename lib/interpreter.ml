@@ -2,7 +2,18 @@ exception Unbound_identifier of (Ast.pos * Ast.pos)
 
 type env = (Ast.id * int) list
 
-let rec interpret_stm (env : env) (stm : Ast.stm) : env =
+let rec interpret_exp_list initenv exps =
+  (* [print] takes a list of expressions to print, so we evaluate them from
+     left to right, augmenting the environment and passing it to the next *)
+  let interpret_and_augment (results, env) e =
+    let e', env' = interpret_exp env e in
+    (e' :: results, env')
+  in
+  (* We fold left and then reverse the resulting list *)
+  let results, env' = List.fold_left interpret_and_augment ([], initenv) exps in
+  (List.rev results, env')
+
+and interpret_stm (env : env) (stm : Ast.stm) : env =
   match stm with
   | Ast.AssignStm (id, exp) ->
       let exp, env = interpret_exp env exp in
@@ -15,15 +26,8 @@ let rec interpret_stm (env : env) (stm : Ast.stm) : env =
         let _ = List.iter (fun num -> Printf.printf "%d " num) line in
         Printf.printf "\n"
       in
-      (* [print] takes a list of expressions to print, so we evaluate them from
-         left to right, augmenting the environment and passing it to the next *)
-      let interpret_and_augment (results, env) e =
-        let e', env' = interpret_exp env e in
-        (e' :: results, env')
-      in
-      (* We fold left and then reverse the resulting list *)
-      let results, env' = List.fold_left interpret_and_augment ([], env) exps in
-      List.rev results |> print;
+      let results, env' = interpret_exp_list env exps in
+      print results;
       (* We return the environment that resulted from the last expression *)
       env'
 
