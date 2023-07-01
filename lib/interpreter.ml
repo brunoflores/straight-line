@@ -25,6 +25,7 @@ let rec interpretStm (env : env) (stm : Ast.stm) : env =
           "" results
       in
       print_endline line;
+      (* We return the environment that resulted from the last expression *)
       env'
 
 and interpretExp (env : env) (exp : Ast.exp) : int * env =
