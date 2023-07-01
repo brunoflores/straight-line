@@ -53,11 +53,15 @@ exp:
     { IdExp (id, (pos_of_lexing_position $startpos, pos_of_lexing_position $endpos)) }
   | i = INT
     { NumExp i }
-  | e1 = exp; PLUS; e2 = exp
-    { OpExp (e1, Plus, e2) }
-  | e1 = exp; MINUS; e2 = exp
-    { OpExp (e1, Minus, e2) }
-  | e1 = exp; TIMES; e2 = exp
-    { OpExp (e1, Times, e2) }
-  | e1 = exp; DIV; e2 = exp
-    { OpExp (e1, Div, e2) }
+  | e1 = exp; op = binop; e2 = exp
+    { OpExp (e1, op, e2) }
+
+%inline binop:
+  | PLUS
+    { Plus }
+  | MINUS
+    { Minus }
+  | TIMES
+    { Times }
+  | DIV
+    { Div }
