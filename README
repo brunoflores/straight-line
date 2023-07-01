@@ -1,3 +1,19 @@
+A straight-line programming language.
+From https://www.cs.princeton.edu/~appel/modern/ml/
+
+Here's an example of a straight-line program:
+
+```
+a := 5+3;
+b := (print (a, a-1), 10*a);
+print (b);
+
+> 8 7
+> 80
+```
+
+Reset messages file while validating the LR(1) grammar:
+
 ```
 $ menhir --strict --explain --list-errors lib/parser.mly > lib/parser.messages
 ```
