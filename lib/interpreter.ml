@@ -16,7 +16,7 @@ let rec interpretStm (env : env) (stm : Ast.stm) : env =
         let e', env' = interpretExp env e in
         (e' :: results, env')
       in
-      (* As is commonly done, we fold left and then revert *)
+      (* We fold left and then reverse the resulting list *)
       let results, env' = List.fold_left interpret_and_augment ([], env) exps in
       let results = List.rev results in
       let line =
