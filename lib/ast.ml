@@ -10,7 +10,7 @@ and exp =
   | NumExp of int
   | OpExp of exp * binop * exp
 
-let pos_of_lexing_position (pos : Lexing.position) : pos =
+let pos_of_lex_pos (pos : Lexing.position) : pos =
   {
     pos_fname = pos.pos_fname;
     pos_lnum = pos.pos_lnum;

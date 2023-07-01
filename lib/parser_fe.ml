@@ -41,7 +41,7 @@ let fail text buffer checkpoint : (Ast.stm list, err) result =
     | Some (MenhirInterpreter.Element (_, _, pos1, pos2)) -> (pos1, pos2)
     | None -> failwith ""
   in
-  let l1, l2 = (Ast.pos_of_lexing_position l1, Ast.pos_of_lexing_position l2) in
+  let l1, l2 = (Ast.pos_of_lex_pos l1, Ast.pos_of_lex_pos l2) in
   Error (SyntaxError (header, (l1, l2)))
 
 let parse (text, lexbuf) : (Ast.stm list, err) result =
