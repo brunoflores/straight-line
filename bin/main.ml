@@ -7,7 +7,7 @@ let () =
   let spec = [] in
   let files = ref [] in
   let readfname s = files := s :: !files in
-  let _ = Arg.parse spec readfname usage in
+  Arg.parse spec readfname usage;
   let file = List.hd !files in
   match Parser.parse file with
   | Ok prog -> (
