@@ -22,19 +22,27 @@
 %%
 
 prog:
-  | p = sep_statements+; EOF
-   { p }
+  | s = sep_stmts*; EOF
+   { s }
 
-sep_statements:
+(* Separated statements must have at least one semicolon in between *)
+(* Multiple semicolons in sequence mean nothing *)
+sep_stmts:
   | s = stm
-  | SEMICOLON+; s = stm
+  | s = stm; SEMICOLON+
     { s }
 
 stm:
   | id = ID; ASSIGN; e = exp
     { AssignStm (id, e) }
-  | PRINT; LPAREN; exps = separated_nonempty_list(COMMA, exp); RPAREN
+  | PRINT; LPAREN; exps = sep_exps*; RPAREN
     { PrintStm exps }
+
+(* Separated expressions must have one comma in between *)
+sep_exps:
+  | e = exp
+  | e = exp; COMMA
+    { e }
 
 exp:
   | LPAREN; e = exp; RPAREN
