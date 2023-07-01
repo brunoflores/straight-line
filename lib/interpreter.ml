@@ -23,8 +23,7 @@ let rec interpretStm (env : env) (stm : Ast.stm) : env =
       in
       (* We fold left and then reverse the resulting list *)
       let results, env' = List.fold_left interpret_and_augment ([], env) exps in
-      let results = List.rev results in
-      print results;
+      List.rev results |> print;
       (* We return the environment that resulted from the last expression *)
       env'
 
