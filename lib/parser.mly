@@ -22,8 +22,13 @@
 %%
 
 prog:
-  | stmts = separated_list(SEMICOLON, stm); EOF
-    { stmts }
+  | p = sep_statements+; EOF
+   { p }
+
+sep_statements:
+  | s = stm
+  | SEMICOLON+; s = stm
+    { s }
 
 stm:
   | id = ID; ASSIGN; e = exp
