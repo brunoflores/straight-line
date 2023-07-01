@@ -10,6 +10,11 @@ let rec interpretStm (env : env) (stm : Ast.stm) : env =
          [List.assoc] returns the first binding found when searching. *)
       (id, exp) :: env
   | Ast.PrintStm exps ->
+      (* Print a line of interegers separated by a space char *)
+      let print line =
+        let _ = List.iter (fun num -> Printf.printf "%d " num) line in
+        Printf.printf "\n"
+      in
       (* [print] takes a list of expressions to print, so we evaluate them from
          left to right, augmenting the environment and passing it to the next *)
       let interpret_and_augment (results, env) e =
@@ -19,12 +24,7 @@ let rec interpretStm (env : env) (stm : Ast.stm) : env =
       (* We fold left and then reverse the resulting list *)
       let results, env' = List.fold_left interpret_and_augment ([], env) exps in
       let results = List.rev results in
-      let line =
-        List.fold_left
-          (fun acc num -> Format.sprintf "%s %s" acc (string_of_int num))
-          "" results
-      in
-      print_endline line;
+      print results;
       (* We return the environment that resulted from the last expression *)
       env'
 
