@@ -10,7 +10,7 @@ let rec interpretStm (env : env) (stm : Ast.stm) : env =
          [List.assoc] returns the first binding found when searching. *)
       (id, exp) :: env
   | Ast.PrintStm exps ->
-      (* Print a line of interegers separated by a space char *)
+      (* Print a line of integers separated by a space char *)
       let print line =
         let _ = List.iter (fun num -> Printf.printf "%d " num) line in
         Printf.printf "\n"
